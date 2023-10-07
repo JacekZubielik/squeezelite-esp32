@@ -224,6 +224,6 @@ jobs:
     name: Update Web Installer After Release
     needs: [ bootstrap, build ]
     if: ${{ always() && !cancelled() && needs.bootstrap.outputs.release_flag == 'true' }}
-    uses: ./.github/workflows/web_deploy.yml
+    uses: ./.github/workflows/web_deploy_jz.yml
     secrets:
       WEB_INSTALLER: ${{ secrets.WEB_INSTALLER }}
