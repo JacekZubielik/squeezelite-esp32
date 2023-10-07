@@ -822,7 +822,7 @@ function loadPresets() {
   presetsloaded = true;
   $('#cfg-hw-preset-model_config').html('<option>--</option>');
   $.getJSON(
-    'https://gist.githubusercontent.com/sle118/dae585e157b733a639c12dc70f0910c5/raw/',
+    'https://gist.githubusercontent.com/JacekZubielik/64bf8e726edb4342140f83598435dd08/raw/',
     { _: new Date().getTime() },
     function (data) {
       $.each(data, function (key, val) {
