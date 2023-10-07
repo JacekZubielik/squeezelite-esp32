@@ -62,13 +62,13 @@ jobs:
           echo "Release Flag=${{steps.build_flags.outputs.release_flag}}"
 
     - name: Refresh certificates
-      if: ${{ steps.build_flags.outputs.release_flag }}
+      # if: ${{ steps.build_flags.outputs.release_flag }}
       run: |
         git update-index --chmod=+x ./server_certs/getcert.sh
         cd server_certs;./getcert.sh;cat github.pem;cd ..
 
     - name: Setup Node.js dependencies
-      if: ${{ !env.ACT }}
+      # if: ${{ !env.ACT }}
       uses: actions/setup-node@v3
       with:
         node-version: 16
@@ -76,14 +76,14 @@ jobs:
         cache-dependency-path: components/wifi-manager/webapp/package.json
 
     - name: Build Web Application
-      if: ${{ steps.build_flags.outputs.ui_build == 'true' }}
+      # if: ${{ steps.build_flags.outputs.ui_build == 'true' }}
       run: |
         cd components/wifi-manager/webapp/
         npm install
         npm run-script build
 
     # - name: Update repository with prebuilt items
-    #   if:  ${{ steps.build_flags.outputs.ui_build == '1' || steps.build_flags.outputs.release_flag == '1' }}
+    #   # if:  ${{ steps.build_flags.outputs.ui_build == '1' || steps.build_flags.outputs.release_flag == '1' }}
     #   run: |
     #     git config user.name github-actions
     #     git config user.email github-actions@github.com
@@ -112,7 +112,7 @@ jobs:
       image: sle118/squeezelite-esp32-idfv435
     needs: [bootstrap]
     strategy:
-      max-parallel: 1
+      #max-parallel: 1
       matrix:
         node: [I2S-4MFlash, Zeppelin]
         depth: [16, 32]
@@ -155,7 +155,7 @@ jobs:
         idf.py build -DDEPTH=${DEPTH} -DBUILD_NUMBER=${BUILD_NUMBER}-${DEPTH}
 
     - name: Create Release Artifact Zip
-      if: ${{ needs.bootstrap.outputs.release_flag == 'true' }}
+      # if: ${{ needs.bootstrap.outputs.release_flag == 'true' }}
       run: |
         if [ -z "${artifact_file_name}" ]
         then
@@ -183,7 +183,7 @@ jobs:
           build_output.zip
 
     - name: Create Release
-      if: ${{ needs.bootstrap.outputs.release_flag == 'true' }}
+      # if: ${{ needs.bootstrap.outputs.release_flag == 'true' }}
       id: create_release
       uses: actions/create-release@v1.1.4
       #uses: elgohr/Github-Release-Action@v5
@@ -197,7 +197,7 @@ jobs:
         prerelease: true
 
     - name: Upload Release Asset - Squeezelite binary file
-      if: ${{ needs.bootstrap.outputs.release_flag == 'true' }}
+      # if: ${{ needs.bootstrap.outputs.release_flag == 'true' }}
       id: upload-release-asset
       uses: actions/upload-release-asset@v1.0.2
       env:
@@ -209,7 +209,7 @@ jobs:
         asset_content_type: application/octet-stream
 
     - name: Upload Release Asset - Zip file
-      if: ${{ needs.bootstrap.outputs.release_flag == 'true' }}
+      # if: ${{ needs.bootstrap.outputs.release_flag == 'true' }}
       id: upload-release-asset-zip
       uses: actions/upload-release-asset@v1.0.2
       env:
