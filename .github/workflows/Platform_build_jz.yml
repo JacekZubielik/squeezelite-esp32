@@ -42,7 +42,7 @@ jobs:
       id: build_flags
       run: |
         git config --global --add safe.directory /__w/squeezelite-esp32/squeezelite-esp32
-        [ "${{github.event.inputs.ui_build}}" == "1" ] && ui_build_option="--ui_build" || ui_build_option=""
+        [ "${{github.event.inputs.ui_build}}" == "true" ] && ui_build_option="--ui_build" || ui_build_option=""
         [ "${{github.event.inputs.release_build}}" == "true" ] && release_build_option="--force" || release_build_option=""
         echo "ui_build_option=$ui_build_option" >> $GITHUB_ENV
         echo "release_build_option=$release_build_option" >> $GITHUB_ENV
@@ -62,13 +62,13 @@ jobs:
           echo "Release Flag=${{steps.build_flags.outputs.release_flag}}"
 
     - name: Refresh certificates
-      #if: ${{ steps.build_flags.outputs.release_flag }}
+      if: ${{ steps.build_flags.outputs.release_flag }}
       run: |
         git update-index --chmod=+x ./server_certs/getcert.sh
         cd server_certs;./getcert.sh;cat github.pem;cd ..
 
     - name: Setup Node.js dependencies
-      #if: ${{ !env.ACT }}
+      if: ${{ !env.ACT }}
       uses: actions/setup-node@v3
       with:
         node-version: 16
@@ -76,7 +76,7 @@ jobs:
         cache-dependency-path: components/wifi-manager/webapp/package.json
 
     - name: Build Web Application
-      #if: ${{ steps.build_flags.outputs.ui_build == '1' }}
+      if: ${{ steps.build_flags.outputs.ui_build == 'true' }}
       run: |
         cd components/wifi-manager/webapp/
         npm install
@@ -155,7 +155,7 @@ jobs:
         idf.py build -DDEPTH=${DEPTH} -DBUILD_NUMBER=${BUILD_NUMBER}-${DEPTH}
 
     - name: Create Release Artifact Zip
-      #if: ${{ needs.bootstrap.outputs.release_flag == '1' }}
+      if: ${{ needs.bootstrap.outputs.release_flag == 'true' }}
       run: |
         if [ -z "${artifact_file_name}" ]
         then
@@ -183,7 +183,7 @@ jobs:
           build_output.zip
 
     - name: Create Release
-      #if: ${{ needs.bootstrap.outputs.release_flag == '1' }}
+      if: ${{ needs.bootstrap.outputs.release_flag == 'true' }}
       id: create_release
       uses: actions/create-release@v1.1.4
       #uses: elgohr/Github-Release-Action@v5
@@ -197,7 +197,7 @@ jobs:
         prerelease: true
 
     - name: Upload Release Asset - Squeezelite binary file
-      #if: ${{ needs.bootstrap.outputs.release_flag == '1' }}
+      if: ${{ needs.bootstrap.outputs.release_flag == 'true' }}
       id: upload-release-asset
       uses: actions/upload-release-asset@v1.0.2
       env:
@@ -209,7 +209,7 @@ jobs:
         asset_content_type: application/octet-stream
 
     - name: Upload Release Asset - Zip file
-      #if: ${{ needs.bootstrap.outputs.release_flag == '1' }}
+      if: ${{ needs.bootstrap.outputs.release_flag == 'true' }}
       id: upload-release-asset-zip
       uses: actions/upload-release-asset@v1.0.2
       env:
@@ -223,7 +223,7 @@ jobs:
   update_web_installer:
     name: Update Web Installer After Release
     needs: [ bootstrap, build ]
-    if: ${{ always() && !cancelled() && needs.bootstrap.outputs.release_flag == '1' }}
+    if: ${{ always() && !cancelled() && needs.bootstrap.outputs.release_flag == 'true' }}
     uses: ./.github/workflows/web_deploy_jz.yml
     secrets:
       WEB_INSTALLER: ${{ secrets.WEB_INSTALLER }}
