@@ -60,7 +60,6 @@ jobs:
       run: |
           echo "Running with the following options"
           echo "Web Build Flag=${{steps.build_flags.outputs.ui_build}}"
-          echo "Mock flag=${{steps.build_flags.outputs.mock}}"
           echo "Release Flag=${{steps.build_flags.outputs.release_flag}}"
 
     - name: Refresh certificates
