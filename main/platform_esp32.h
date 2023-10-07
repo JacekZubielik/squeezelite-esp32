@@ -13,7 +13,7 @@
 
 #include "esp_pthread.h"
 #ifndef CONFIG_SQUEEZELITE_ESP32_RELEASE_URL
-#define CONFIG_SQUEEZELITE_ESP32_RELEASE_URL "https://github.com/sle118/squeezelite-esp32/releases"
+#define CONFIG_SQUEEZELITE_ESP32_RELEASE_URL "https://github.com/JacekZubielik/squeezelite-esp32/releases"
 #endif
 
 extern  bool wait_for_wifi();

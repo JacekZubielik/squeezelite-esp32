@@ -24,7 +24,7 @@
 #include "esp_pthread.h"
 #include "esp_log.h"
 #ifndef SQUEEZELITE_ESP32_RELEASE_URL
-#define SQUEEZELITE_ESP32_RELEASE_URL "https://github.com/sle118/squeezelite-esp32/releases"
+#define SQUEEZELITE_ESP32_RELEASE_URL "https://github.com/JacekZubielik/squeezelite-esp32/releases"
 #endif
 extern bool is_recovery_running;
 extern  bool wait_for_wifi();

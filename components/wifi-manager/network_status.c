@@ -18,7 +18,7 @@
 #include "trace.h"
 #ifndef CONFIG_SQUEEZELITE_ESP32_RELEASE_URL
 #pragma message "Defaulting release url"
-#define CONFIG_SQUEEZELITE_ESP32_RELEASE_URL "https://github.com/sle118/squeezelite-esp32/releases"
+#define CONFIG_SQUEEZELITE_ESP32_RELEASE_URL "https://github.com/JacekZubielik/squeezelite-esp32/releases"
 #endif
 static const char TAG[] = "network_status";
 SemaphoreHandle_t network_status_json_mutex = NULL;
