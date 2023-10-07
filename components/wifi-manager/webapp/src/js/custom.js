@@ -822,7 +822,7 @@ function loadPresets() {
   presetsloaded = true;
   $('#cfg-hw-preset-model_config').html('<option>--</option>');
   $.getJSON(
-    'https://gist.githubusercontent.com/JacekZubielik/64bf8e726edb4342140f83598435dd08/raw/',
+    'https://gist.githubusercontent.com/JacekZubielik/64bf8e726edb4342140f83598435dd08/raw/049c67378d2848bc6d1c6e3216e40a190e067963/squeezelite-esp32-presets.json',
     { _: new Date().getTime() },
     function (data) {
       $.each(data, function (key, val) {
