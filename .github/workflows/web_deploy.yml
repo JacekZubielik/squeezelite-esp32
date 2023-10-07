@@ -3,7 +3,7 @@ on:
   workflow_call:
     secrets:
       WEB_INSTALLER:
-        required: true       
+        required: true
   workflow_dispatch:
 jobs:
   update_web_installer:
@@ -17,10 +17,10 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          submodules: true    
+          submodules: true
       - name: Update Web Installer Project
         run: |
           . /opt/esp/python_env/idf4.3_py3.8_env/bin/activate
-          git config --global --add safe.directory /__w/squeezelite-esp32/squeezelite-esp32   
+          git config --global --add safe.directory /__w/squeezelite-esp32/squeezelite-esp32
           build_tools.py manifest --flash_file "/build/flash_project_args" --outdir "./bin_files" --manif_name "manifest" --max_count 3
-          build_tools.py pushinstaller --source "./bin_files" --manif_name "manifest" --target "web-installer" --url "https://github.com/sle118/squeezelite-esp32-installer.git" --artifacts "docs/artifacts" --web_installer_branch "main" --token "${{env.WEB_INSTALLER}}"
+          build_tools.py pushinstaller --source "./bin_files" --manif_name "manifest" --target "web-installer" --url "https://github.com/jacekzubielik/squeezelite-esp32-installer.git" --artifacts "docs/artifacts" --web_installer_branch "main" --token "${{env.WEB_INSTALLER}}"
