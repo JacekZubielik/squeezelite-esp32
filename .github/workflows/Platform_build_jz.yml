@@ -2,10 +2,10 @@ name: Platform Build JZ
 on:
   push:
     branches:
-      - '**jz'
+      - '**master'
   pull_request:
     branches:
-      - '**jz'
+      - '**master'
   workflow_dispatch:
     inputs:
       ui_build:
