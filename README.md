@@ -1,4 +1,4 @@
-[![Platform Build](https://github.com/sle118/squeezelite-esp32/actions/workflows/Platform_build.yml/badge.svg)](https://github.com/sle118/squeezelite-esp32/actions/workflows/Platform_build.yml)
+[![Platform Build JZ](https://github.com/JacekZubielik/squeezelite-esp32/actions/workflows/Platform_build_jz.yml/badge.svg?branch=jz-master)](https://github.com/JacekZubielik/squeezelite-esp32/actions/workflows/Platform_build_jz.yml)
 # Squeezelite-esp32
 
 ## What is this?
